@@ -12,6 +12,13 @@
 		BA79B8EF1D67779E001C1C2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA79B8ED1D67779E001C1C2F /* Main.storyboard */; };
 		BA79B8F11D67779E001C1C2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA79B8F01D67779E001C1C2F /* Assets.xcassets */; };
 		BA79B8F41D67779E001C1C2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA79B8F21D67779E001C1C2F /* LaunchScreen.storyboard */; };
+		BA79B9051D6777EE001C1C2F /* BorderedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B8FB1D6777EE001C1C2F /* BorderedTextView.swift */; };
+		BA79B9081D6777EE001C1C2F /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B8FE1D6777EE001C1C2F /* PlaceholderTextView.swift */; };
+		BA79B9091D6777EE001C1C2F /* RoundedCornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B8FF1D6777EE001C1C2F /* RoundedCornerButton.swift */; };
+		BA79B90A1D6777EE001C1C2F /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B9001D6777EE001C1C2F /* RoundedCornerView.swift */; };
+		BA79B90B1D6777EE001C1C2F /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B9011D6777EE001C1C2F /* RoundImageView.swift */; };
+		BA79B90C1D6777EE001C1C2F /* SelectableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B9021D6777EE001C1C2F /* SelectableButton.swift */; };
+		BA79B90E1D6777EE001C1C2F /* StackedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B9041D6777EE001C1C2F /* StackedButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +29,13 @@
 		BA79B8F01D67779E001C1C2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA79B8F31D67779E001C1C2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA79B8F51D67779E001C1C2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA79B8FB1D6777EE001C1C2F /* BorderedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextView.swift; sourceTree = "<group>"; };
+		BA79B8FE1D6777EE001C1C2F /* PlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
+		BA79B8FF1D6777EE001C1C2F /* RoundedCornerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerButton.swift; sourceTree = "<group>"; };
+		BA79B9001D6777EE001C1C2F /* RoundedCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
+		BA79B9011D6777EE001C1C2F /* RoundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
+		BA79B9021D6777EE001C1C2F /* SelectableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableButton.swift; sourceTree = "<group>"; };
+		BA79B9041D6777EE001C1C2F /* StackedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +74,13 @@
 				BA79B8F01D67779E001C1C2F /* Assets.xcassets */,
 				BA79B8F21D67779E001C1C2F /* LaunchScreen.storyboard */,
 				BA79B8F51D67779E001C1C2F /* Info.plist */,
+				BA79B8FF1D6777EE001C1C2F /* RoundedCornerButton.swift */,
+				BA79B9001D6777EE001C1C2F /* RoundedCornerView.swift */,
+				BA79B9011D6777EE001C1C2F /* RoundImageView.swift */,
+				BA79B8FB1D6777EE001C1C2F /* BorderedTextView.swift */,
+				BA79B8FE1D6777EE001C1C2F /* PlaceholderTextView.swift */,
+				BA79B9021D6777EE001C1C2F /* SelectableButton.swift */,
+				BA79B9041D6777EE001C1C2F /* StackedButton.swift */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -136,7 +157,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA79B8EC1D67779E001C1C2F /* ViewController.swift in Sources */,
+				BA79B9051D6777EE001C1C2F /* BorderedTextView.swift in Sources */,
+				BA79B90C1D6777EE001C1C2F /* SelectableButton.swift in Sources */,
+				BA79B9081D6777EE001C1C2F /* PlaceholderTextView.swift in Sources */,
+				BA79B9091D6777EE001C1C2F /* RoundedCornerButton.swift in Sources */,
 				BA79B8EA1D67779E001C1C2F /* AppDelegate.swift in Sources */,
+				BA79B90E1D6777EE001C1C2F /* StackedButton.swift in Sources */,
+				BA79B90A1D6777EE001C1C2F /* RoundedCornerView.swift in Sources */,
+				BA79B90B1D6777EE001C1C2F /* RoundImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +316,7 @@
 				BA79B8FA1D67779E001C1C2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
