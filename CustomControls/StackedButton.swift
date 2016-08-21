@@ -17,18 +17,36 @@ public class StackedButton:SelectableButton {
      */
     @IBInspectable public var padding:CGFloat = 6.0 {
         didSet {
-            setup()
+            adjustInsets()
         }
     }
     
+    // override layoutSubviews since we are messing with the insets
     public override func layoutSubviews() {
         super.layoutSubviews()
-        setup()
+        adjustInsets()
     }
     
     
-    func setup() {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
     
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // set default values for this button, and get defaults from super
+    override func setup() {
+        super.setup()
+        padding = 6.0
+        adjustInsets()
+    }
+    
+    func adjustInsets() {
+        
         // get the size of the image and title, then add padding to get a total height
         let imageSize = self.imageView!.frame.size
         let titleSize = self.titleLabel!.frame.size

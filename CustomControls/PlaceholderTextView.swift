@@ -12,6 +12,8 @@ import UIKit
 @IBDesignable
 public class PlaceholderTextView: UITextView {
     
+    private var placeholderLabel:UILabel!
+    
     /**
      The placeholder text the text view will display.  Default is an empty string.
      */
@@ -31,16 +33,22 @@ public class PlaceholderTextView: UITextView {
         didSet {
             placeholderLabel?.textColor = placeholderTextColor
         }
-        
     }
-    
-    private var placeholderLabel:UILabel!
     
     // when the font is set, apply it to the placeholder as well so they always match
     public override var font: UIFont? {
         didSet {
             placeholderLabel?.font = font
             setNeedsDisplay()
+        }
+    }
+    
+    func textChanged(notification:NSNotification) {
+        // only pick up notifications that came from this object
+        if notification.object as! PlaceholderTextView == self {
+            
+            // hide the placeholder if we actually have text typed in
+            placeholderLabel.hidden = (textStorage.length != 0)
         }
     }
     
@@ -54,36 +62,23 @@ public class PlaceholderTextView: UITextView {
         setup()
     }
     
-    func textChanged(notification:NSNotification) {
-        // only pick up notifications that came from this object
-        if notification.object as! PlaceholderTextView == self {
-            
-            // hide the placeholder if we actually have text typed in
-            placeholderLabel.hidden = (textStorage.length != 0)
-        }
-    }
-    
     private func setup() {
-        // Create a placeholder label with default text and font, then size to fit
+        
+        // Create a placeholder label with default text and color
         placeholderLabel = UILabel()
-        placeholderLabel.text = placeholderText
-        placeholderLabel.font = self.font
-        placeholderLabel.sizeToFit()
+        placeholderTextColor = UIColor.lightGrayColor()
+        placeholderText = ""
         
         // add the placeholder label to the UITextView and setup contraints for adaptive design support
-        self.addSubview(placeholderLabel)
+        addSubview(placeholderLabel)
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+
         // add constraints to display the placeholder text in the proper place dependent on the insets
-        placeholderLabel.topAnchor.constraintEqualToAnchor(topAnchor,
-                                                           constant: textContainerInset.top).active = true
-        
-        placeholderLabel.leadingAnchor.constraintEqualToAnchor(leadingAnchor,
-                                                               constant: textContainerInset.left+5).active = true
-        
-        placeholderLabel.trailingAnchor.constraintEqualToAnchor(trailingAnchor).active = true
-        
-        
+        NSLayoutConstraint.activateConstraints([
+            placeholderLabel.topAnchor.constraintEqualToAnchor(topAnchor, constant: textContainerInset.top),
+            placeholderLabel.leadingAnchor.constraintEqualToAnchor(leadingAnchor, constant: textContainerInset.left+5),
+            placeholderLabel.trailingAnchor.constraintEqualToAnchor(trailingAnchor)
+        ])
         
         // Handle text changes so we hide/show the placeholder appropriately
         NSNotificationCenter.defaultCenter().addObserver(self,
@@ -100,7 +95,7 @@ public class PlaceholderTextView: UITextView {
                                                          object: nil)
         
     }
-    
+
 }
 
 

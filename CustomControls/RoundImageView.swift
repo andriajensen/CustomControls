@@ -30,9 +30,17 @@ import QuartzCore
     }
     
     func setup() {
+        // set default values
         layer.borderColor = UIColor.lightGrayColor().CGColor
         layer.borderWidth = 1.0
         layer.masksToBounds = true
+        
+        contentMode = .ScaleAspectFill
+        clipsToBounds = true
+        
+        // make sure we are attempting to keep a 1:1 aspect ratio
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraintEqualToAnchor(heightAnchor, multiplier: 1.0).active = true
     }
     
     override init(frame: CGRect) {
@@ -49,6 +57,15 @@ import QuartzCore
         layer.cornerRadius = layer.frame.width/2
     }
     
+    public override func intrinsicContentSize() -> CGSize {
+        return CGSize(width: 150, height: 150)
+    }
+    
+    public class override func requiresConstraintBasedLayout() -> Bool {
+        return true
+    }
+    
+    
     override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
@@ -62,5 +79,4 @@ import QuartzCore
         image =  UIImage(named: "headshot", inBundle: bundle, compatibleWithTraitCollection: self.traitCollection)
         
     }
-    
 }

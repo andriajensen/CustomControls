@@ -19,6 +19,8 @@
 		BA79B90B1D6777EE001C1C2F /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B9011D6777EE001C1C2F /* RoundImageView.swift */; };
 		BA79B90C1D6777EE001C1C2F /* SelectableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B9021D6777EE001C1C2F /* SelectableButton.swift */; };
 		BA79B90E1D6777EE001C1C2F /* StackedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79B9041D6777EE001C1C2F /* StackedButton.swift */; };
+		BAEFDE201D6A20BC00481FD0 /* BetterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFDE1F1D6A20BC00481FD0 /* BetterSlider.swift */; };
+		BAEFDE221D6A215900481FD0 /* UIView+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFDE211D6A215900481FD0 /* UIView+Image.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		BA79B9011D6777EE001C1C2F /* RoundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		BA79B9021D6777EE001C1C2F /* SelectableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableButton.swift; sourceTree = "<group>"; };
 		BA79B9041D6777EE001C1C2F /* StackedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackedButton.swift; sourceTree = "<group>"; };
+		BAEFDE1F1D6A20BC00481FD0 /* BetterSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterSlider.swift; sourceTree = "<group>"; };
+		BAEFDE211D6A215900481FD0 /* UIView+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Image.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 				BA79B8FE1D6777EE001C1C2F /* PlaceholderTextView.swift */,
 				BA79B9021D6777EE001C1C2F /* SelectableButton.swift */,
 				BA79B9041D6777EE001C1C2F /* StackedButton.swift */,
+				BAEFDE1F1D6A20BC00481FD0 /* BetterSlider.swift */,
+				BAEFDE211D6A215900481FD0 /* UIView+Image.swift */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -156,10 +162,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAEFDE221D6A215900481FD0 /* UIView+Image.swift in Sources */,
 				BA79B8EC1D67779E001C1C2F /* ViewController.swift in Sources */,
 				BA79B9051D6777EE001C1C2F /* BorderedTextView.swift in Sources */,
 				BA79B90C1D6777EE001C1C2F /* SelectableButton.swift in Sources */,
 				BA79B9081D6777EE001C1C2F /* PlaceholderTextView.swift in Sources */,
+				BAEFDE201D6A20BC00481FD0 /* BetterSlider.swift in Sources */,
 				BA79B9091D6777EE001C1C2F /* RoundedCornerButton.swift in Sources */,
 				BA79B8EA1D67779E001C1C2F /* AppDelegate.swift in Sources */,
 				BA79B90E1D6777EE001C1C2F /* StackedButton.swift in Sources */,

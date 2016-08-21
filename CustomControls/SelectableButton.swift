@@ -17,33 +17,72 @@ public class SelectableButton:RoundedCornerButton {
      */
     public override var selected: Bool {
         didSet {
-            updateBackgroundColor()
+            updateColors()
         }
     }
+    
+    /**
+     Determines whether the button will toggle selected state on a touch up inside event.
+     */
+    
+    @IBInspectable public var touchToSelect:Bool = true
     
     /**
      The background color when the button is selected. Default is a light gray.
      */
-    @IBInspectable public var selectedBackgroundColor:UIColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5) {
+    @IBInspectable public var selectedBackgroundColor:UIColor = UIColor.lightGrayColor() {
         didSet {
-            updateBackgroundColor()
+            updateColors()
         }
     }
     
     /**
-     The background color when the button is deselected (normal).  Default is clear.
+     The background color when the button is deselected (normal).  Default is dark gray.
      */
-    @IBInspectable public var deselectedBackgroundColor:UIColor = UIColor.clearColor() {
+    @IBInspectable public var deselectedBackgroundColor:UIColor = UIColor.darkGrayColor() {
         didSet {
-            updateBackgroundColor()
+            updateColors()
         }
     }
     
-    private func updateBackgroundColor() {
+    func updateColors() {
         backgroundColor = (selected ? selectedBackgroundColor : deselectedBackgroundColor)
+        borderColor = (selected ? deselectedBackgroundColor : selectedBackgroundColor)
+        setTitleColor(selectedBackgroundColor, forState: .Normal)
+        setTitleColor(deselectedBackgroundColor, forState: .Selected)
+        
+        imageView?.tintColor = borderColor
     }
     
-    public override func prepareForInterfaceBuilder() {
+    @objc private func touched() {
+        if touchToSelect {
+            self.selected = !selected
+        }
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    func setup() {
+        
+        // set defaults
+        selectedBackgroundColor = UIColor.lightGrayColor()
+        deselectedBackgroundColor = UIColor.darkGrayColor()
+        cornerRadius = 4.0
+        borderWidth = 1.0
         tintColor = UIColor.clearColor()
+        
+        // update colors on button
+        updateColors()
+        
+        // handle the touch event to do the selection if turned on
+        self.addTarget(self, action: #selector(touched), forControlEvents: .TouchUpInside)
     }
 }

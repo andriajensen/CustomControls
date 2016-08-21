@@ -10,16 +10,24 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+ 
+    @IBOutlet weak var roundedCornerButton: RoundedCornerButton!
+    @IBOutlet weak var roundedCornerView: RoundedCornerView!
+    @IBOutlet weak var borderedTextView: BorderedTextView!
+    @IBOutlet weak var selectableButton: SelectableButton!
+    @IBOutlet weak var stackedButton: StackedButton!
+    @IBOutlet weak var roundImageView: RoundImageView!
+
+    
+    @IBAction func toggleTextViewBorderColor(sender: AnyObject) {
+        
+        if borderedTextView.borderColor == UIColor.redColor() {
+            borderedTextView.borderColor = UIColor.blueColor()
+        }
+        else {
+            borderedTextView.borderColor = UIColor.redColor()
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
 }
 

@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
+
 @IBDesignable public class RoundedCornerButton: UIButton {
+    
     
     /**
      The width of the border to be applied to the label.  Default is 2 pixels.
@@ -30,19 +32,14 @@ import UIKit
     }
     
     /**
-     The radius of the rounded corners.  Default is 5.0.
+     The radius of the rounded corners.  Default is 4.0.
      */
-    @IBInspectable public var cornerRadius:CGFloat = 5.0 {
+    @IBInspectable public var cornerRadius:CGFloat = 4.0 {
         didSet {
             layer.cornerRadius = cornerRadius
+            layer.masksToBounds = true
         }
     }
-    
-    public override func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-        clipsToBounds = true
-    }
-    
     
 }
 
