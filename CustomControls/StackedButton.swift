@@ -10,19 +10,19 @@ import Foundation
 import UIKit
 
 @IBDesignable
-public class StackedButton:SelectableButton {
+open class StackedButton:SelectableButton {
     
     /**
      The vertical padding between the image and the text.  Default is 6.0.
      */
-    @IBInspectable public var padding:CGFloat = 6.0 {
+    @IBInspectable open var padding:CGFloat = 6.0 {
         didSet {
             adjustInsets()
         }
     }
     
     // override layoutSubviews since we are messing with the insets
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         adjustInsets()
     }

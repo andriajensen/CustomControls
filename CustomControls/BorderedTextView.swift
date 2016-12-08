@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-@IBDesignable public class BorderedTextView:PlaceholderTextView {
+@IBDesignable open class BorderedTextView:PlaceholderTextView {
     
     
     /**
      The color of the border around the text view.  Default is light gray.
      */
-    @IBInspectable public var borderColor:UIColor = UIColor.lightGrayColor() {
+    @IBInspectable open var borderColor:UIColor = UIColor.lightGray {
         didSet {
             // animate a change to the border color
             let colorChange = CABasicAnimation(keyPath: "borderColor")
@@ -23,8 +23,8 @@ import UIKit
             colorChange.fromValue = layer.borderColor
             colorChange.toValue = borderColor
             
-            layer.borderColor = borderColor.CGColor
-            layer.addAnimation(colorChange, forKey: "borderColor")
+            layer.borderColor = borderColor.cgColor
+            layer.add(colorChange, forKey: "borderColor")
         }
     }
     
@@ -32,7 +32,7 @@ import UIKit
     /** 
      The corner radius to control how rounded the text view's corner are.  Default is 4.
      */
-    @IBInspectable public var cornerRadius:CGFloat = 4.0 {
+    @IBInspectable open var cornerRadius:CGFloat = 4.0 {
         didSet {
             layer.cornerRadius = cornerRadius
         }
@@ -41,7 +41,7 @@ import UIKit
     /**
      The width of the border to be applied to the label.  Default is 1 pixels.
      */
-    @IBInspectable public var borderWidth:CGFloat = 1.0 {
+    @IBInspectable open var borderWidth:CGFloat = 1.0 {
         didSet {
             layer.borderWidth = borderWidth
         }
@@ -57,10 +57,10 @@ import UIKit
         setup()
     }
     
-    private func setup() {
+    fileprivate func setup() {
         cornerRadius = 4.0
         borderWidth = 1.0
-        borderColor = UIColor.lightGrayColor()
+        borderColor = UIColor.lightGray
     }
     
     

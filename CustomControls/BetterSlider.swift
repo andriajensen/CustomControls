@@ -11,25 +11,25 @@ import UIKit
 
 public protocol BetterSliderDelegate {
     
-    func sliderValueChanged(newValue:Int)
+    func sliderValueChanged(_ newValue:Int)
 }
 
 @available(iOS 9.0, *)
-@IBDesignable public class BetterSlider: UIView {
+@IBDesignable open class BetterSlider: UIView {
     
-    private var thumbSize:CGFloat = 40
-    private var indicatorSize:CGFloat = 80
+    fileprivate var thumbSize:CGFloat = 40
+    fileprivate var indicatorSize:CGFloat = 80
     
-    private var slider:UISlider?
-    private var indicatorLabel:UILabel?
-    private var indicator:UIView?
-    private var thumbLabel:UILabel?
-    private var emptyThumbImage:UIImage?
-    private var thumbImage:UIImage?
+    fileprivate var slider:UISlider?
+    fileprivate var indicatorLabel:UILabel?
+    fileprivate var indicator:UIView?
+    fileprivate var thumbLabel:UILabel?
+    fileprivate var emptyThumbImage:UIImage?
+    fileprivate var thumbImage:UIImage?
     
-    public var delegate:BetterSliderDelegate?
+    open var delegate:BetterSliderDelegate?
     
-    @IBInspectable public var minimumValue:Int = 1 {
+    @IBInspectable open var minimumValue:Int = 1 {
         didSet {
             if minimumValue >= maximumValue {
                 minimumValue = maximumValue-1
@@ -38,7 +38,7 @@ public protocol BetterSliderDelegate {
         }
     }
     
-    @IBInspectable public var maximumValue:Int = 10 {
+    @IBInspectable open var maximumValue:Int = 10 {
         didSet {
             if maximumValue <= minimumValue {
                 maximumValue = minimumValue+1
@@ -47,7 +47,7 @@ public protocol BetterSliderDelegate {
         }
     }
     
-    @IBInspectable public var trackColor:UIColor = UIColor.lightGrayColor() {
+    @IBInspectable open var trackColor:UIColor = UIColor.lightGray {
         didSet {
             slider?.tintColor = trackColor
             slider?.minimumTrackTintColor = trackColor
@@ -55,7 +55,7 @@ public protocol BetterSliderDelegate {
         }
     }
     
-    @IBInspectable public var value:Int {
+    @IBInspectable open var value:Int {
         set {
             slider?.value = Float(newValue)
             updateThumb()
@@ -65,13 +65,13 @@ public protocol BetterSliderDelegate {
         }
     }
     
-    @IBInspectable public var thumbColor:UIColor = UIColor.blueColor() {
+    @IBInspectable open var thumbColor:UIColor = UIColor.blue {
         didSet {
             thumbLabel?.backgroundColor = thumbColor
         }
     }
     
-    @IBInspectable public var valueColor:UIColor = UIColor.darkGrayColor() {
+    @IBInspectable open var valueColor:UIColor = UIColor.darkGray {
         didSet {
             thumbLabel?.textColor = valueColor
             indicatorLabel?.textColor = valueColor
@@ -88,7 +88,7 @@ public protocol BetterSliderDelegate {
         setupViews()
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -96,29 +96,29 @@ public protocol BetterSliderDelegate {
         if let slider = slider {
             // anchor the slider to the bottom, center it and have it fill the available horizontal space
             slider.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activateConstraints([
-                slider.centerXAnchor.constraintEqualToAnchor(centerXAnchor),
-                slider.bottomAnchor.constraintEqualToAnchor(bottomAnchor, constant: 0),
-                slider.leadingAnchor.constraintEqualToAnchor(leadingAnchor),
-                slider.trailingAnchor.constraintEqualToAnchor(trailingAnchor),
-                slider.heightAnchor.constraintEqualToConstant(50)
+            NSLayoutConstraint.activate([
+                slider.centerXAnchor.constraint(equalTo: centerXAnchor),
+                slider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+                slider.leadingAnchor.constraint(equalTo: leadingAnchor),
+                slider.trailingAnchor.constraint(equalTo: trailingAnchor),
+                slider.heightAnchor.constraint(equalToConstant: 50)
                 ])
         }
     }
     
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         updateThumb()
     }
     
-    override public func intrinsicContentSize() -> CGSize {
+    override open var intrinsicContentSize : CGSize {
         return CGSize(width: 300, height: 100)
     }
     
-    public class override func requiresConstraintBasedLayout() -> Bool {
+    open class override var requiresConstraintBasedLayout : Bool {
         return true
     }
     
-    public override func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         self.clipsToBounds = false
     }
     
@@ -127,22 +127,22 @@ public protocol BetterSliderDelegate {
         slider = UISlider()
         
         if let slider = slider {
-            slider.addTarget(self, action: #selector(updateValueIndicator), forControlEvents: .TouchDragInside)
-            slider.addTarget(self, action: #selector(showValueIndicator), forControlEvents: .TouchDown)
-            slider.addTarget(self, action: #selector(hideValueIndicatorAnimated), forControlEvents: [.TouchUpInside])
-            slider.addTarget(self, action: #selector(hideValueIndicator), forControlEvents: [.TouchUpOutside, .TouchDragExit, .TouchCancel, .TouchDragOutside])
-            slider.addTarget(self, action: #selector(updateThumb), forControlEvents: [.TouchDragOutside, .TouchDragInside])
-            slider.addTarget(self, action: #selector(updateValueIndicator), forControlEvents: [.ValueChanged])
+            slider.addTarget(self, action: #selector(updateValueIndicator), for: .touchDragInside)
+            slider.addTarget(self, action: #selector(showValueIndicator), for: .touchDown)
+            slider.addTarget(self, action: #selector(hideValueIndicatorAnimated), for: [.touchUpInside])
+            slider.addTarget(self, action: #selector(hideValueIndicator), for: [.touchUpOutside, .touchDragExit, .touchCancel, .touchDragOutside])
+            slider.addTarget(self, action: #selector(updateThumb), for: [.touchDragOutside, .touchDragInside])
+            slider.addTarget(self, action: #selector(updateValueIndicator), for: [.valueChanged])
             
             addSubview(slider)
             
             // create a transparent view to use as a placeholder for the thumb
             // this helps make a smooth animation instead of a thumb image always showing
-            let emptyThumbView = UIView(frame:CGRectMake(0,0,thumbSize, thumbSize))
-            emptyThumbView.backgroundColor = UIColor.clearColor()
+            let emptyThumbView = UIView(frame:CGRect(x: 0,y: 0,width: thumbSize, height: thumbSize))
+            emptyThumbView.backgroundColor = UIColor.clear
             emptyThumbImage = emptyThumbView.toImage()
-            slider.setThumbImage(emptyThumbImage, forState: .Normal)
-            slider.setThumbImage(emptyThumbImage, forState: .Highlighted)
+            slider.setThumbImage(emptyThumbImage, for: UIControlState())
+            slider.setThumbImage(emptyThumbImage, for: .highlighted)
             
             
             thumbLabel = createThumbLabel()
@@ -150,15 +150,15 @@ public protocol BetterSliderDelegate {
                 addSubview(thumbLabel)
             }
             
-            self.userInteractionEnabled = true
+            self.isUserInteractionEnabled = true
             
         }
         
         minimumValue = 1
         maximumValue = 10
-        trackColor = UIColor.lightGrayColor()
-        thumbColor = UIColor.blueColor()
-        valueColor = UIColor.whiteColor()
+        trackColor = UIColor.lightGray
+        thumbColor = UIColor.blue
+        valueColor = UIColor.white
         value = 1
     }
     
@@ -176,10 +176,10 @@ extension BetterSlider {
         
         let label = UILabel(frame:currentThumbRect)
         label.text = "\(value)"
-        label.font = UIFont.systemFontOfSize(20)
+        label.font = UIFont.systemFont(ofSize: 20)
         label.backgroundColor = thumbColor
         label.textColor = valueColor
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.layer.cornerRadius = thumbSize/2
         label.layer.masksToBounds = true
         label.center = currentThumbCenter
@@ -187,16 +187,16 @@ extension BetterSlider {
         return label
     }
     
-    private var currentThumbRect:CGRect {
+    fileprivate var currentThumbRect:CGRect {
         guard let slider = slider else {
-            return CGRectZero
+            return CGRect.zero
         }
         
         print("slider.value = \(slider.value)")
-        return slider.thumbRectForBounds(slider.bounds, trackRect: slider.trackRectForBounds(slider.bounds), value: slider.value)
+        return slider.thumbRect(forBounds: slider.bounds, trackRect: slider.trackRect(forBounds: slider.bounds), value: slider.value)
     }
     
-    private var currentThumbCenter:CGPoint {
+    fileprivate var currentThumbCenter:CGPoint {
         return CGPoint(x: currentThumbRect.midX, y: currentThumbRect.midY+thumbSize+10)
     }
     
@@ -240,15 +240,15 @@ extension BetterSlider {
         let quarterSize = halfSize/2
         
         
-        path.moveToPoint(CGPoint(x:halfSize, y:indicatorSize))
-        path.addCurveToPoint(CGPoint(x:halfSize, y:0), controlPoint1: CGPoint(x:0, y:quarterSize), controlPoint2: CGPoint(x:quarterSize, y:0))
-        path.addCurveToPoint(CGPoint(x:halfSize, y:indicatorSize), controlPoint1: CGPoint(x:3*quarterSize, y:0), controlPoint2: CGPoint(x: indicatorSize, y: quarterSize))
-        path.closePath()
+        path.move(to: CGPoint(x:halfSize, y:indicatorSize))
+        path.addCurve(to: CGPoint(x:halfSize, y:0), controlPoint1: CGPoint(x:0, y:quarterSize), controlPoint2: CGPoint(x:quarterSize, y:0))
+        path.addCurve(to: CGPoint(x:halfSize, y:indicatorSize), controlPoint1: CGPoint(x:3*quarterSize, y:0), controlPoint2: CGPoint(x: indicatorSize, y: quarterSize))
+        path.close()
         
         // fill using the matching thumb color and use the path for a new layer
         let layer = CAShapeLayer()
-        layer.path = path.CGPath
-        layer.fillColor = thumbColor.CGColor
+        layer.path = path.cgPath
+        layer.fillColor = thumbColor.cgColor
         
         // create an indicator view at the appropriate position (based on current thumb's rect)
         indicator = UIView(frame: currentIndicatorRect)
@@ -256,7 +256,7 @@ extension BetterSlider {
         if let indicator = indicator {
             // add the shape drawn to the indicator view with a transparent background
             indicator.layer.addSublayer(layer)
-            indicator.backgroundColor = UIColor.clearColor()
+            indicator.backgroundColor = UIColor.clear
             
             // create the label for the value and add it to the indicator view
             indicatorLabel = createThumbLabel()
@@ -266,22 +266,22 @@ extension BetterSlider {
             }
             
             // insert the indicator behind the slider
-            self.insertSubview(indicator, atIndex: 0)
+            self.insertSubview(indicator, at: 0)
             
             // set starting scale small so it can grow with animation
-            let scale = CGAffineTransformMakeScale(0.2, 0.2)
-            indicator.transform = CGAffineTransformConcat(scale, CGAffineTransformMakeTranslation(0, halfSize))
+            let scale = CGAffineTransform(scaleX: 0.2, y: 0.2)
+            indicator.transform = scale.concatenating(CGAffineTransform(translationX: 0, y: halfSize))
         }
         
         
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.8, options: .CurveLinear, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.8, options: .curveLinear, animations: {
             // shrink and hide the thumb label
-            self.thumbLabel?.transform = CGAffineTransformMakeScale(0.1, 0.1)
+            self.thumbLabel?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             self.thumbLabel?.alpha = 0.0
             
             // grow and show the indicator, fading in the value label
             self.indicatorLabel?.alpha = 1.0
-            self.indicator?.transform = CGAffineTransformIdentity
+            self.indicator?.transform = CGAffineTransform.identity
             
             }, completion:nil )
         
@@ -290,7 +290,7 @@ extension BetterSlider {
     
     func hideValueIndicator() {
         // show the thumb at full size without animation
-        self.thumbLabel?.transform = CGAffineTransformIdentity
+        self.thumbLabel?.transform = CGAffineTransform.identity
         self.thumbLabel?.alpha = 1.0
         
         // make sure the value and position are correct
@@ -302,13 +302,13 @@ extension BetterSlider {
     
     func hideValueIndicatorAnimated() {
         // fade out the indicator while shrinking and translating down
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.8, options: .CurveLinear, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.8, options: .curveLinear, animations: {
             // fade out the label and transform the view to shrink downward
             self.indicatorLabel?.alpha = 0.0
-            self.indicator?.transform = CGAffineTransformConcat(CGAffineTransformMakeScale(0.01, 0.01), CGAffineTransformMakeTranslation(0, self.indicatorSize/2))
+            self.indicator?.transform = CGAffineTransform(scaleX: 0.01, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: self.indicatorSize/2))
             
             // fade in the thumb and grow it to its original size
-            self.thumbLabel?.transform = CGAffineTransformIdentity
+            self.thumbLabel?.transform = CGAffineTransform.identity
             self.thumbLabel?.alpha = 1.0
             
             }, completion: { finished in
@@ -326,7 +326,7 @@ extension BetterSlider {
     var currentIndicatorRect:CGRect {
         let rect = currentThumbRect
         print("rect = \(rect)")
-        return CGRectMake(rect.midX-thumbSize, rect.midY-thumbSize/2-10, indicatorSize, indicatorSize)
+        return CGRect(x: rect.midX-thumbSize, y: rect.midY-thumbSize/2-10, width: indicatorSize, height: indicatorSize)
     }
     
     
