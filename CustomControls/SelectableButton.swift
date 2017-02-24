@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 @IBDesignable
-public class SelectableButton:RoundedCornerButton {
+open class SelectableButton:RoundedCornerButton {
     
     /**
      Captures when the button is selected, so we change the background color
      */
-    public override var selected: Bool {
+    open override var isSelected: Bool {
         didSet {
             updateColors()
         }
@@ -25,12 +25,12 @@ public class SelectableButton:RoundedCornerButton {
      Determines whether the button will toggle selected state on a touch up inside event.
      */
     
-    @IBInspectable public var touchToSelect:Bool = true
+    @IBInspectable open var touchToSelect:Bool = true
     
     /**
      The background color when the button is selected. Default is a light gray.
      */
-    @IBInspectable public var selectedBackgroundColor:UIColor = UIColor.lightGrayColor() {
+    @IBInspectable open var selectedBackgroundColor:UIColor = UIColor.lightGray {
         didSet {
             updateColors()
         }
@@ -39,24 +39,24 @@ public class SelectableButton:RoundedCornerButton {
     /**
      The background color when the button is deselected (normal).  Default is dark gray.
      */
-    @IBInspectable public var deselectedBackgroundColor:UIColor = UIColor.darkGrayColor() {
+    @IBInspectable open var deselectedBackgroundColor:UIColor = UIColor.darkGray {
         didSet {
             updateColors()
         }
     }
     
     func updateColors() {
-        backgroundColor = (selected ? selectedBackgroundColor : deselectedBackgroundColor)
-        borderColor = (selected ? deselectedBackgroundColor : selectedBackgroundColor)
-        setTitleColor(selectedBackgroundColor, forState: .Normal)
-        setTitleColor(deselectedBackgroundColor, forState: .Selected)
+        backgroundColor = (isSelected ? selectedBackgroundColor : deselectedBackgroundColor)
+        borderColor = (isSelected ? deselectedBackgroundColor : selectedBackgroundColor)
+        setTitleColor(selectedBackgroundColor, for: UIControlState())
+        setTitleColor(deselectedBackgroundColor, for: .selected)
         
         imageView?.tintColor = borderColor
     }
     
-    @objc private func touched() {
+    @objc fileprivate func touched() {
         if touchToSelect {
-            self.selected = !selected
+            self.isSelected = !isSelected
         }
     }
     
@@ -73,16 +73,16 @@ public class SelectableButton:RoundedCornerButton {
     func setup() {
         
         // set defaults
-        selectedBackgroundColor = UIColor.lightGrayColor()
-        deselectedBackgroundColor = UIColor.darkGrayColor()
+        selectedBackgroundColor = UIColor.lightGray
+        deselectedBackgroundColor = UIColor.darkGray
         cornerRadius = 4.0
         borderWidth = 1.0
-        tintColor = UIColor.clearColor()
+        tintColor = UIColor.clear
         
         // update colors on button
         updateColors()
         
         // handle the touch event to do the selection if turned on
-        self.addTarget(self, action: #selector(touched), forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(touched), for: .touchUpInside)
     }
 }

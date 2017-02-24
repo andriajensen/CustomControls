@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 
-@IBDesignable public class RoundedCornerButton: UIButton {
+@IBDesignable open class RoundedCornerButton: UIButton {
     
     
     /**
      The width of the border to be applied to the label.  Default is 2 pixels.
      */
-    @IBInspectable public var borderWidth:CGFloat = 2.0 {
+    @IBInspectable open var borderWidth:CGFloat = 2.0 {
         didSet {
             layer.borderWidth = borderWidth
         }
@@ -25,16 +25,16 @@ import UIKit
     /**
      The color of the border to be applied to the label.  Default is light gray.
      */
-    @IBInspectable public var borderColor:UIColor = UIColor.lightGrayColor() {
+    @IBInspectable open var borderColor:UIColor = UIColor.lightGray {
         didSet {
-            layer.borderColor = borderColor.CGColor
+            layer.borderColor = borderColor.cgColor
         }
     }
     
     /**
      The radius of the rounded corners.  Default is 4.0.
      */
-    @IBInspectable public var cornerRadius:CGFloat = 4.0 {
+    @IBInspectable open var cornerRadius:CGFloat = 4.0 {
         didSet {
             layer.cornerRadius = cornerRadius
             layer.masksToBounds = true

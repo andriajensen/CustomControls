@@ -9,21 +9,21 @@
 import UIKit
 import QuartzCore
 
-@IBDesignable public class RoundImageView: UIImageView {
+@IBDesignable open class RoundImageView: UIImageView {
 
     /**
      The color of the border to be applied to the image.  Default is light gray.
      */
-    @IBInspectable public var borderColor:UIColor = UIColor.lightGrayColor() {
+    @IBInspectable open var borderColor:UIColor = UIColor.lightGray {
         didSet {
-            layer.borderColor = borderColor.CGColor
+            layer.borderColor = borderColor.cgColor
         }
     }
     
     /**
      The width of the border to be applied to the image.  Default is 1 pixel.
      */
-    @IBInspectable public var borderWidth:Double = 1.0 {
+    @IBInspectable open var borderWidth:Double = 1.0 {
         didSet {
             layer.borderWidth = CGFloat(borderWidth)
         }
@@ -31,16 +31,16 @@ import QuartzCore
     
     func setup() {
         // set default values
-        layer.borderColor = UIColor.lightGrayColor().CGColor
+        layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 1.0
         layer.masksToBounds = true
         
-        contentMode = .ScaleAspectFill
+        contentMode = .scaleAspectFill
         clipsToBounds = true
         
         // make sure we are attempting to keep a 1:1 aspect ratio
         translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraintEqualToAnchor(heightAnchor, multiplier: 1.0).active = true
+        widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1.0).isActive = true
     }
     
     override init(frame: CGRect) {
@@ -53,30 +53,30 @@ import QuartzCore
         setup()
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         layer.cornerRadius = layer.frame.width/2
     }
     
-    public override func intrinsicContentSize() -> CGSize {
+    open override var intrinsicContentSize : CGSize {
         return CGSize(width: 150, height: 150)
     }
     
-    public class override func requiresConstraintBasedLayout() -> Bool {
+    open class override var requiresConstraintBasedLayout : Bool {
         return true
     }
     
     
-    override public func prepareForInterfaceBuilder() {
+    override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
         // make sure we are filling the circle and masking by default
-        contentMode = .ScaleAspectFill
+        contentMode = .scaleAspectFill
         clipsToBounds = true
         
         // setup a placeholder image so we can see what it looks like when a photo is in the view
         // this image is only set for IB, and will not be set at runtime
-        let bundle = NSBundle(forClass: self.dynamicType)
-        image =  UIImage(named: "headshot", inBundle: bundle, compatibleWithTraitCollection: self.traitCollection)
+        let bundle = Bundle(for: type(of: self))
+        image =  UIImage(named: "headshot", in: bundle, compatibleWith: self.traitCollection)
         
     }
 }

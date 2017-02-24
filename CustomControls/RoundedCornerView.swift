@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 
-@IBDesignable public class RoundedCornerView: UIView {
+@IBDesignable open class RoundedCornerView: UIView {
     
     /**
      The width of the border to be applied to the view.  Default is 2 pixels.
      */
-    @IBInspectable public var borderWidth:CGFloat = 2.0 {
+    @IBInspectable open var borderWidth:CGFloat = 2.0 {
         didSet {
             layer.borderWidth = borderWidth
         }
@@ -24,23 +24,23 @@ import UIKit
     /**
      The color of the border to be applied to the view.  Default is light gray.
      */
-    @IBInspectable public var borderColor:UIColor = UIColor.lightGrayColor() {
+    @IBInspectable open var borderColor:UIColor = UIColor.lightGray {
         didSet {
-            layer.borderColor = borderColor.CGColor
+            layer.borderColor = borderColor.cgColor
         }
     }
     
     /**
      The radius of the rounded corners.  Default is 4.0.
      */
-    @IBInspectable public var cornerRadius:CGFloat = 4.0 {
+    @IBInspectable open var cornerRadius:CGFloat = 4.0 {
         didSet {
             layer.cornerRadius = cornerRadius
         }
     }
     
     func setup() {
-        layer.borderColor = UIColor.lightGrayColor().CGColor
+        layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 2.0
         layer.cornerRadius = 4.0
         layer.masksToBounds = true

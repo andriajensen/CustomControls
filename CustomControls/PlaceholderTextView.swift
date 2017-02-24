@@ -10,14 +10,14 @@ import UIKit
 
 @available(iOS 9.0, *)
 @IBDesignable
-public class PlaceholderTextView: UITextView {
+open class PlaceholderTextView: UITextView {
     
-    private var placeholderLabel:UILabel!
+    fileprivate var placeholderLabel:UILabel!
     
     /**
      The placeholder text the text view will display.  Default is an empty string.
      */
-    @IBInspectable public var placeholderText:String = "" {
+    @IBInspectable open var placeholderText:String = "" {
         didSet {
             // dynamically size the placeholder label as the placeholder text is updated
             placeholderLabel?.text = placeholderText
@@ -29,26 +29,26 @@ public class PlaceholderTextView: UITextView {
     /**
      The color of the placeholder text.  Default is light gray.
      */
-    @IBInspectable public var placeholderTextColor:UIColor = UIColor.lightGrayColor() {
+    @IBInspectable open var placeholderTextColor:UIColor = UIColor.lightGray {
         didSet {
             placeholderLabel?.textColor = placeholderTextColor
         }
     }
     
     // when the font is set, apply it to the placeholder as well so they always match
-    public override var font: UIFont? {
+    open override var font: UIFont? {
         didSet {
             placeholderLabel?.font = font
             setNeedsDisplay()
         }
     }
     
-    func textChanged(notification:NSNotification) {
+    func textChanged(_ notification:Notification) {
         // only pick up notifications that came from this object
         if notification.object as! PlaceholderTextView == self {
             
             // hide the placeholder if we actually have text typed in
-            placeholderLabel.hidden = (textStorage.length != 0)
+            placeholderLabel.isHidden = (textStorage.length != 0)
         }
     }
     
@@ -62,11 +62,11 @@ public class PlaceholderTextView: UITextView {
         setup()
     }
     
-    private func setup() {
+    fileprivate func setup() {
         
         // Create a placeholder label with default text and color
         placeholderLabel = UILabel()
-        placeholderTextColor = UIColor.lightGrayColor()
+        placeholderTextColor = UIColor.lightGray
         placeholderText = ""
         
         // add the placeholder label to the UITextView and setup contraints for adaptive design support
@@ -74,24 +74,24 @@ public class PlaceholderTextView: UITextView {
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
 
         // add constraints to display the placeholder text in the proper place dependent on the insets
-        NSLayoutConstraint.activateConstraints([
-            placeholderLabel.topAnchor.constraintEqualToAnchor(topAnchor, constant: textContainerInset.top),
-            placeholderLabel.leadingAnchor.constraintEqualToAnchor(leadingAnchor, constant: textContainerInset.left+5),
-            placeholderLabel.trailingAnchor.constraintEqualToAnchor(trailingAnchor)
+        NSLayoutConstraint.activate([
+            placeholderLabel.topAnchor.constraint(equalTo: topAnchor, constant: textContainerInset.top),
+            placeholderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: textContainerInset.left+5),
+            placeholderLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
         // Handle text changes so we hide/show the placeholder appropriately
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          selector: #selector(textChanged),
-                                                         name: UITextViewTextDidChangeNotification,
+                                                         name: NSNotification.Name.UITextViewTextDidChange,
                                                          object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(textChanged),
-                                                         name: UITextViewTextDidBeginEditingNotification,
+        NotificationCenter.default.addObserver(self, selector: #selector(textChanged),
+                                                         name: NSNotification.Name.UITextViewTextDidBeginEditing,
                                                          object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(textChanged),
-                                                         name: UITextViewTextDidEndEditingNotification,
+        NotificationCenter.default.addObserver(self, selector: #selector(textChanged),
+                                                         name: NSNotification.Name.UITextViewTextDidEndEditing,
                                                          object: nil)
         
     }

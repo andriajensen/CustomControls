@@ -13,11 +13,11 @@ public extension UIView {
     public func toImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         
-        layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
         
         let finalImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return finalImage
+        return finalImage!
     }
 }
